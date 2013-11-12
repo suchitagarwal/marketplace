@@ -1,0 +1,14 @@
+<h1>Create product</h1>
+<%= form_for @product do |f| %>
+  <%= f.text_field :name %>
+  <% @variants.each do |variant| %>
+    <p>Choose available <%= variant.name %>s</p>
+    <% variant.variant_values.each do |variant_value| %>
+      <%= f.fields_for :product_variant_values do |pvv_form| %>
+        <%#= pvv_form.hidden_field :variant_id, :value => variant.id %>
+        <%= pvv_form.check_box :variant_value_id, :value => variant_value.id %><%= variant_value.name %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= f.submit "Create" %>
+<% end %>
